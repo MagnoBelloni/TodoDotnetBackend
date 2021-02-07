@@ -30,5 +30,21 @@ namespace Todo.Domain.Tests.QueryTests
             var result = _items.AsQueryable().Where(TodoQueries.GetAll("usuarioB"));
             Assert.AreEqual(3, result.Count());
         }
+
+        [TestMethod]
+        public void Dada_a_consulta_deve_retornar_tarefas_apenas_do_id_correto()
+        {
+            var ID = _items.FirstOrDefault().Id;
+            var result = _items.AsQueryable().Where(TodoQueries.GetById(ID, "usuarioA"));
+            Assert.AreEqual(1, result.Count());
+        }
+
+        [TestMethod]
+        public void Dada_a_consulta_deve_retornar_tarefas_apenas_do_periodo_correto()
+        {
+            var date = _items.FirstOrDefault().Date;
+            var result = _items.AsQueryable().Where(TodoQueries.GetByPeriod("usuarioA", date, false));
+            Assert.AreEqual(2, result.Count());
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace Todo.Domain.API.Controllers
         public IEnumerable<TodoItem> GetUndoneForToday([FromServices] ITodoRepository repository)
         {
             var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
-            return repository.GetByPeriod("user, DateTime.Now.Date, false);
+            return repository.GetByPeriod(user, DateTime.Now.Date, false);
         }
 
         [Route("done/tomorrow")]
